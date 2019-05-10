@@ -21,9 +21,22 @@ namespace curs_2_webapi.Controllers
 
         // GET: api/Flowers
         [HttpGet]
-        public IEnumerable<Flower> Get()
+        public IEnumerable<Flower> Get([FromQuery]DateTime? from, [FromQuery]DateTime? to)
         {
-            return context.Flowers;
+            IQueryable<Flower> result = context.Flowers;
+            if (from == null && to == null)
+            {
+                return result;
+            }
+            if (from != null)
+            {
+                result = result.Where(f => f.DatePicked >= from);
+            }
+            if (to != null)
+            {
+                result = result.Where(f => f.DatePicked <= to);
+            }
+            return result;
         }
 
         // GET: api/Flowers/5

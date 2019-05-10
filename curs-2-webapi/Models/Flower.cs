@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace curs_2_webapi.Models
 {
+    public enum FlowerSize
+    {
+        Small,
+        Medium,
+        Large
+    }
     public class Flower
     {
         public int Id { get; set; }
@@ -14,6 +20,8 @@ namespace curs_2_webapi.Models
         [Range(1, 10)]
         public int SmellLevel { get; set; }
         public bool IsArtificial { get; set; }
-
+        public DateTime DatePicked { get; set; }
+        [EnumDataType(typeof(FlowerSize))]
+        public FlowerSize FlowerSize { get; set; }
     }
 }
