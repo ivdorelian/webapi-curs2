@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using curs_2_webapi.Models;
 
 namespace curs_2_webapi.Migrations
 {
     [DbContext(typeof(FlowersDbContext))]
-    partial class FlowersDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190510153048_AddCommentsModel")]
+    partial class AddCommentsModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,15 +27,11 @@ namespace curs_2_webapi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("FlowerId");
-
                     b.Property<bool>("Important");
 
                     b.Property<string>("Text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FlowerId");
 
                     b.ToTable("Comments");
                 });
@@ -59,13 +57,6 @@ namespace curs_2_webapi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Flowers");
-                });
-
-            modelBuilder.Entity("curs_2_webapi.Models.Comment", b =>
-                {
-                    b.HasOne("curs_2_webapi.Models.Flower")
-                        .WithMany("Comments")
-                        .HasForeignKey("FlowerId");
                 });
 #pragma warning restore 612, 618
         }

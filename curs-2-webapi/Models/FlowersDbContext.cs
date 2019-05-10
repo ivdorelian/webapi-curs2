@@ -16,5 +16,6 @@ namespace curs_2_webapi.Models
         // DbSet = Repository
         // DbSet = O tabela din baza de date
         public DbSet<Flower> Flowers { get; set; }
+        public DbSet<Comment> Comments { get; set; }
     }
 }

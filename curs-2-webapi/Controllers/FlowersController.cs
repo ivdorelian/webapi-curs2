@@ -19,11 +19,16 @@ namespace curs_2_webapi.Controllers
             this.context = context;
         }
 
-        // GET: api/Flowers
+        /// <summary>
+        /// Gets all the flowers.
+        /// </summary>
+        /// <param name="from">Optional, filter by minimum DatePicked.</param>
+        /// <param name="to">Optional, filter by maximum DatePicked.</param>
+        /// <returns>A list of Flower objects.</returns>
         [HttpGet]
         public IEnumerable<Flower> Get([FromQuery]DateTime? from, [FromQuery]DateTime? to)
         {
-            IQueryable<Flower> result = context.Flowers;
+            IQueryable<Flower> result = context.Flowers.Include(f => f.Comments);
             if (from == null && to == null)
             {
                 return result;
@@ -43,7 +48,9 @@ namespace curs_2_webapi.Controllers
         [HttpGet("{id}", Name = "Get")]
         public IActionResult Get(int id)
         {
-            var existing = context.Flowers.FirstOrDefault(flower => flower.Id == id);
+            var existing = context.Flowers
+                .Include(f => f.Comments)
+                .FirstOrDefault(flower => flower.Id == id);
             if (existing == null)
             {
                 return NotFound();
@@ -52,7 +59,36 @@ namespace curs_2_webapi.Controllers
             return Ok(existing);
         }
 
-        // POST: api/Flowers
+        /// <summary>
+        /// Add a flower.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /flowers
+        ///     {
+        ///         "name": "flower cu comments",
+        ///         "colors": "White, Yellow",
+        ///         "smellLevel": 9,
+        ///         "isArtificial": false,
+        ///         "datePicked": "2019-05-07T20:30:50",
+        ///         "flowerSize": 2,
+        ///         "comments": [
+        ///    	        {
+        ///    		        "text": "a nice flower",
+        ///    		        "important": true
+        ///
+        ///             },
+        ///    	        {
+        ///    		        "text": "expensive",
+        ///    		        "important": false
+        ///    	        }	
+        ///         ]
+        ///     }	
+        ///</remarks>
+        /// <param name="flower">The flower to add.</param>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
         public void Post([FromBody] Flower flower)
         {

@@ -23,5 +23,6 @@ namespace curs_2_webapi.Models
         public DateTime DatePicked { get; set; }
         [EnumDataType(typeof(FlowerSize))]
         public FlowerSize FlowerSize { get; set; }
+        public List<Comment> Comments { get; set; }
     }
 }
