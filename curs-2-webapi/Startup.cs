@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using curs_2_webapi.Models;
+using curs_2_webapi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -60,6 +61,9 @@ namespace curs_2_webapi
                 c.IncludeXmlComments(xmlPath);
             });
 
+            // https://stackoverflow.com/questions/38138100/addtransient-addscoped-and-addsingleton-services-differences
+            // Dependency Injection
+            services.AddScoped<IFlowerService, FlowerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
