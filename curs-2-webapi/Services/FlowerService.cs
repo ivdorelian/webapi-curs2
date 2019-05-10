@@ -1,4 +1,5 @@
 ﻿using curs_2_webapi.Models;
+using curs_2_webapi.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,9 @@ namespace curs_2_webapi.Services
         /// <param name="from"></param>
         /// <param name="to"></param>
         /// <returns></returns>
-        IEnumerable<Flower> GetAll(DateTime? from=null, DateTime? to=null);
+        IEnumerable<FlowerGetModel> GetAll(DateTime? from=null, DateTime? to=null);
         Flower GetById(int id);
-        Flower Create(Flower flower);
+        Flower Create(FlowerPostModel flower);
         Flower Upsert(int id, Flower flower);
         Flower Delete(int id);
     }
@@ -29,11 +30,12 @@ namespace curs_2_webapi.Services
             this.context = context;
         }
 
-        public Flower Create(Flower flower)
+        public Flower Create(FlowerPostModel flower)
         {
-            context.Flowers.Add(flower);
+            Flower toAdd = FlowerPostModel.ToFlower(flower);
+            context.Flowers.Add(toAdd);
             context.SaveChanges();
-            return flower;
+            return toAdd;
         }
 
         public Flower Delete(int id)
@@ -49,12 +51,14 @@ namespace curs_2_webapi.Services
             return existing;
         }
 
-        public IEnumerable<Flower> GetAll(DateTime? from=null, DateTime? to=null)
+        public IEnumerable<FlowerGetModel> GetAll(DateTime? from=null, DateTime? to=null)
         {
-            IQueryable<Flower> result = context.Flowers.Include(f => f.Comments);
+            IQueryable<Flower> result = context
+                .Flowers
+                .Include(f => f.Comments);
             if (from == null && to == null)
             {
-                return result;
+                return result.Select(f => FlowerGetModel.FromFlower(f));
             }
             if (from != null)
             {
@@ -64,7 +68,7 @@ namespace curs_2_webapi.Services
             {
                 result = result.Where(f => f.DatePicked <= to);
             }
-            return result;
+            return result.Select(f => FlowerGetModel.FromFlower(f));
         }
 
         public Flower GetById(int id)

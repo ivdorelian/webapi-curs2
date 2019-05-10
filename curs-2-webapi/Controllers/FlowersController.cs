@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using curs_2_webapi.Models;
 using curs_2_webapi.Services;
+using curs_2_webapi.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +29,7 @@ namespace curs_2_webapi.Controllers
         /// <param name="to">Optional, filter by maximum DatePicked.</param>
         /// <returns>A list of Flower objects.</returns>
         [HttpGet]
-        public IEnumerable<Flower> Get([FromQuery]DateTime? from, [FromQuery]DateTime? to)
+        public IEnumerable<FlowerGetModel> Get([FromQuery]DateTime? from, [FromQuery]DateTime? to)
         {
             return flowerService.GetAll(from, to);
         }
@@ -76,7 +77,7 @@ namespace curs_2_webapi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
-        public void Post([FromBody] Flower flower)
+        public void Post([FromBody] FlowerPostModel flower)
         {
             flowerService.Create(flower);
         }
