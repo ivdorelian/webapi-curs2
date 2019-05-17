@@ -14,10 +14,17 @@ namespace curs_2_webapi.Models
 
         }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<User>(entity => {
+                entity.HasIndex(u => u.Username).IsUnique();
+            });
+        }
+
         // DbSet = Repository
         // DbSet = O tabela din baza de date
         public DbSet<Flower> Flowers { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<UserPostModel> Users { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

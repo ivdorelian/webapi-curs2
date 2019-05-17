@@ -30,9 +30,11 @@ namespace curs_2_webapi.Controllers
         /// <param name="to">Optional, filter by maximum DatePicked.</param>
         /// <returns>A list of Flower objects.</returns>
         [HttpGet]
-        public IEnumerable<FlowerGetModel> Get([FromQuery]DateTime? from, [FromQuery]DateTime? to)
+        public PaginatedList<FlowerGetModel> Get([FromQuery]DateTime? from, [FromQuery]DateTime? to, [FromQuery]int page = 1)
         {
-            return flowerService.GetAll(from, to);
+            // TODO: make pagination work with /api/flowers/page/<page number>
+            page = Math.Max(page, 1);
+            return flowerService.GetAll(page, from, to);
         }
 
         // GET: api/Flowers/5

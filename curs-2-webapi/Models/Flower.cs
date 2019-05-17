@@ -24,5 +24,6 @@ namespace curs_2_webapi.Models
         [EnumDataType(typeof(FlowerSize))]
         public FlowerSize FlowerSize { get; set; }
         public List<Comment> Comments { get; set; }
+        // public User AddedBy { get; set; }
     }
 }

@@ -86,7 +86,13 @@ namespace curs_2_webapi.Services
 
         public UserGetModel Register(RegisterPostModel registerInfo)
         {
-            context.Users.Add(new UserPostModel
+            User existing = context.Users.FirstOrDefault(u => u.Username == registerInfo.Username);
+            if (existing != null)
+            {
+                return null;
+            }
+
+            context.Users.Add(new User
             {
                 Email = registerInfo.Email,
                 LastName = registerInfo.LastName,

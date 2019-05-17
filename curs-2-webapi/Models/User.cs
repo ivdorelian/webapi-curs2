@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace curs_2_webapi.Models
 {
-    public class UserPostModel
+    public class User
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

@@ -43,6 +43,10 @@ namespace curs_2_webapi.Controllers
         public IActionResult Register([FromBody]RegisterPostModel registerModel)
         {
             var user = _userService.Register(registerModel);
+            if (user == null)
+            {
+                return BadRequest(new { ErrorMessage = "Username already exists." });
+            }
             return Ok(user);
         }
 
