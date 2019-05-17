@@ -40,7 +40,9 @@ namespace curs_2_webapi.Services
 
         public Flower Delete(int id)
         {
-            var existing = context.Flowers.FirstOrDefault(flower => flower.Id == id);
+            var existing = context.Flowers
+                .Include(f => f.Comments)
+                .FirstOrDefault(flower => flower.Id == id);
             if (existing == null)
             {
                 return null;

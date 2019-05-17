@@ -11,6 +11,7 @@ namespace curs_2_webapi.Models
     {
         public FlowersDbContext(DbContextOptions<FlowersDbContext> options) : base(options)
         {
+
         }
 
         // DbSet = Repository
