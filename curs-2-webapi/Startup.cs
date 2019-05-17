@@ -59,6 +59,15 @@ namespace curs_2_webapi
                     }
                 });
 
+                c.AddSecurityDefinition("Bearer", new ApiKeyScheme()
+                {
+                    Description = "Authorization header using the Bearer scheme",
+                    Name = "Authorization",
+                    In = "header"
+                });
+
+                c.DocumentFilter<SwaggerSecurityRequirementsDocumentFilter>();
+
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
