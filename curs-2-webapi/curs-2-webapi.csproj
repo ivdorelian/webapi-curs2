@@ -13,6 +13,8 @@
     <Compile Remove="Migrations\20190514135337_AddFlowerForComment.Designer.cs" />
     <Compile Remove="Migrations\20190517142038_FlowerDeleteCascadesComments.cs" />
     <Compile Remove="Migrations\20190517142038_FlowerDeleteCascadesComments.Designer.cs" />
+    <Compile Remove="Migrations\20190517143737_AddUserAndRegistrationModels.cs" />
+    <Compile Remove="Migrations\20190517143737_AddUserAndRegistrationModels.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

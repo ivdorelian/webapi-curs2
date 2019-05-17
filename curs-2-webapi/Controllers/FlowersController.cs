@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using curs_2_webapi.Models;
 using curs_2_webapi.Services;
 using curs_2_webapi.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -76,6 +77,7 @@ namespace curs_2_webapi.Controllers
         /// <param name="flower">The flower to add.</param>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize]
         [HttpPost]
         public void Post([FromBody] FlowerPostModel flower)
         {
