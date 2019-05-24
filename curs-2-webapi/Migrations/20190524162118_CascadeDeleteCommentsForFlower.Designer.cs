@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using curs_2_webapi.Models;
 
 namespace curs_2_webapi.Migrations
 {
     [DbContext(typeof(FlowersDbContext))]
-    partial class FlowersDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190524162118_CascadeDeleteCommentsForFlower")]
+    partial class CascadeDeleteCommentsForFlower
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,8 +84,6 @@ namespace curs_2_webapi.Migrations
                     b.Property<string>("LastName");
 
                     b.Property<string>("Password");
-
-                    b.Property<int>("UserRole");
 
                     b.Property<string>("Username");
 

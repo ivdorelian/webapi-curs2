@@ -19,6 +19,11 @@ namespace curs_2_webapi.Models
             builder.Entity<User>(entity => {
                 entity.HasIndex(u => u.Username).IsUnique();
             });
+
+            builder.Entity<Comment>()
+                .HasOne(f => f.Flower)
+                .WithMany(c => c.Comments)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
         // DbSet = Repository

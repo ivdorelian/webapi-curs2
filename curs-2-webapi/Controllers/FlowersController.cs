@@ -81,11 +81,16 @@ namespace curs_2_webapi.Controllers
         /// <param name="flower">The flower to add.</param>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [Authorize]
+        [Authorize(Roles = "Admin,Regular")]
         [HttpPost]
         public void Post([FromBody] FlowerPostModel flower)
         {
+            /// NEXT TIME: folosirea permisiunilor.
             User addedBy = usersService.GetCurrentUser(HttpContext);
+            //if (addedBy.UserRole == UserRole.UserManager)
+            //{
+            //    return Forbid();
+            //}
             flowerService.Create(flower, addedBy);
         }
 
