@@ -18,9 +18,11 @@ namespace curs_2_webapi.Controllers
     public class FlowersController : ControllerBase
     {
         private IFlowerService flowerService;
-        public FlowersController(IFlowerService flowerService)
+        private IUsersService usersService;
+        public FlowersController(IFlowerService flowerService, IUsersService usersService)
         {
             this.flowerService = flowerService;
+            this.usersService = usersService;
         }
 
         /// <summary>
@@ -83,7 +85,8 @@ namespace curs_2_webapi.Controllers
         [HttpPost]
         public void Post([FromBody] FlowerPostModel flower)
         {
-            flowerService.Create(flower);
+            User addedBy = usersService.GetCurrentUser(HttpContext);
+            flowerService.Create(flower, addedBy);
         }
 
         // PUT: api/Flowers/5

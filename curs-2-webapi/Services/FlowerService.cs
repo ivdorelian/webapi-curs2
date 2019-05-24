@@ -18,7 +18,7 @@ namespace curs_2_webapi.Services
         /// <returns></returns>
         PaginatedList<FlowerGetModel> GetAll(int page, DateTime? from=null, DateTime? to=null);
         Flower GetById(int id);
-        Flower Create(FlowerPostModel flower);
+        Flower Create(FlowerPostModel flower, User addedBy);
         Flower Upsert(int id, Flower flower);
         Flower Delete(int id);
     }
@@ -30,10 +30,11 @@ namespace curs_2_webapi.Services
             this.context = context;
         }
 
-        public Flower Create(FlowerPostModel flower)
+        public Flower Create(FlowerPostModel flower, User addedBy)
         {
             // TODO: how to store the user that added the flower as a field in Flower?
             Flower toAdd = FlowerPostModel.ToFlower(flower);
+            toAdd.Owner = addedBy;
             context.Flowers.Add(toAdd);
             context.SaveChanges();
             return toAdd;

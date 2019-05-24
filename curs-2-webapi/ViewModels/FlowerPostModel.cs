@@ -16,6 +16,7 @@ namespace curs_2_webapi.ViewModels
         public bool IsArtificial { get; set; }
         public DateTime DatePicked { get; set; }
         public string FlowerSize { get; set; }
+        public List<Comment> Comments { get; set; }
 
         public static Flower ToFlower(FlowerPostModel flower)
         {
@@ -35,7 +36,8 @@ namespace curs_2_webapi.ViewModels
                 DatePicked = flower.DatePicked,
                 IsArtificial = flower.IsArtificial,
                 SmellLevel = flower.SmellLevel,
-                FlowerSize = flowerSize
+                FlowerSize = flowerSize,
+                Comments = flower.Comments,
             };
         }
     }
